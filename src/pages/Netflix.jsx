@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import NavBar from "../components/NavBar";
 import backgroundImage from '../assets/home.jpg'
 import MovieLogo from '../assets/homeTitle.webp'
 import {FaPlay} from 'react-icons/fa'
 import {AiOutlineInfoCircle} from 'react-icons/ai'
 import styled from 'styled-components'
+import {useNavigate} from "react-router-dom";
 
 const Netflix = () => {
 
-    const [isScrolled,setIsScrolled] = useState(false)
+    const navigate = useNavigate()
+    const [isScrolled, setIsScrolled] = useState(false)
 
+    const onClickNavigate = useCallback(() => {
+        navigate('/player')
+    }, [navigate])
 
-    window.onscroll = ()=>{
+    window.onscroll = () => {
         setIsScrolled(window.pageYOffset !== 0)
-        return ()=>window.onscroll = null
+        return () => window.onscroll = null
     }
 
     return (
@@ -26,7 +31,7 @@ const Netflix = () => {
                         <img src={MovieLogo} alt="MovieLogo"/>
                     </div>
                     <div className="buttons flex">
-                        <button className={'flex j-center a-center'}>
+                        <button className={'flex j-center a-center'} onClick={onClickNavigate}>
                             <FaPlay/> Play
                         </button>
                         <button className={'flex j-center a-center'}>
@@ -38,7 +43,6 @@ const Netflix = () => {
         </Container>
     );
 };
-
 
 
 const Container = styled.div`
