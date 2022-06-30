@@ -38,7 +38,7 @@ const SignUp = () => {
 
 
     return (
-        <Container showPassword={showPassword}>
+        <Container>
             <BackgroundImage/>
             <div className="content">
                 <Header/>
