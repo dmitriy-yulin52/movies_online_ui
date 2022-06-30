@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import {useCallback, useState} from "react";
 import {createUserWithEmailAndPassword,onAuthStateChanged} from 'firebase/auth'
 import {firebaseAuth} from "../utils/firebase-config";
-import {useNavigate,Navigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
 

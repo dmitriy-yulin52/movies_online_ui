@@ -9,7 +9,6 @@ import Header from "../components/Header";
 
 const SignUp = () => {
 
-    const [showPassword, setShowPassword] = useState(false)
     const [formValues, setFormValues] = useState({
         email: '',
         password: ''
@@ -23,10 +22,6 @@ const SignUp = () => {
     const onChangePasswordValue = useCallback((e) => {
         setFormValues({...formValues, password: e.currentTarget.value})
     }, [setFormValues, formValues])
-    const onClickShowPassword = useCallback(() => {
-        setShowPassword(true)
-    }, [setShowPassword])
-
 
     const handleLogin = async () => {
         try {
