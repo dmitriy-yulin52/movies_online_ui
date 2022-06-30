@@ -31,6 +31,7 @@ const SignUp = () => {
     const handleSignIn = async ()=>{
         try{
             const {email,password} = formValues
+            console.log(formValues)
             await createUserWithEmailAndPassword(firebaseAuth,email,password)
         }catch (err) {
             console.log(err)
