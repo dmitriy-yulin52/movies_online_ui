@@ -36,7 +36,7 @@ const getRawData = async (api, genres, paging) => {
     return moviesArray
 }
 export const fetchMovies = createAsyncThunk('netflix/trending',
-    async ({type}, thunkApi) => {
+     ({type}, thunkApi) => {
         const {netflix} = thunkApi.getState()
         return getRawData(
             `${TMBD_BASE_URL}/trending/${type}/week?api_key=${API_KEY}`,

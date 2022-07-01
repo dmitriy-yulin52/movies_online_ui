@@ -39,7 +39,6 @@ const Netflix = () => {
         return () => window.onscroll = null
     }
 
-    console.log(movies,'movies')
 
     return (
         <Container>

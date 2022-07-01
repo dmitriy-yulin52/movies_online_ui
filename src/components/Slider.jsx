@@ -4,14 +4,12 @@ import CardSlider from "./CardSlider";
 
 
 function getMoviesFromRange(movies,from,to){
-    console.log('getMoviesFromRange')
     return movies.slice(from,to)
 }
 
 
 const Slider = memo(({movies}) => {
 
-    console.log('render')
 
     return (
         <div>
