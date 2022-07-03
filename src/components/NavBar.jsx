@@ -91,7 +91,7 @@ nav {
     height:6.5rem;
     width:100%;
     justify-content: space-between;
-    z-index:2;
+    z-index:2000;
     align-items:center;
     transition: 0.3s ease-in-out;
     .left{

@@ -87,11 +87,12 @@ img{
     z-index:10;
 }
 .hover{
-    z-index:90;
+    z-index:1000;
     height:max-content;
     width:300px;
     position:absolute;
-    top:-24vh;
+    top:-10vh;
+    left:-15px;
     border-radius:0.3rem;
     background-shadow:rgba(0,0,0,0.75) 0px 3px 10px;
     background-color: #181818;
