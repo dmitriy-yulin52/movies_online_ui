@@ -9,35 +9,40 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchMovies, getGenres} from "../store/netflix/actions";
 import Slider from "../components/Slider";
+import Spinner from "../components/spinner";
 
 const Netflix = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const [isScrolled, setIsScrolled] = useState(false)
 
-    const genresLoaded = useSelector((state)=>state.netflix.genresLoaded)
-    const movies = useSelector((state)=>state.netflix.movies)
+    const genresLoaded = useSelector((state) => state.netflix.genresLoaded)
+    const loadingMovies = useSelector((state) => state.netflix.loadingMovies)
+    const movies = useSelector((state) => state.netflix.movies)
 
 
     const onClickNavigate = useCallback(() => {
         navigate('/player')
     }, [navigate])
 
-    const dispatch = useDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getGenres())
-    },[])
+    }, [])
 
-    useEffect(()=>{
-      if(genresLoaded) dispatch(fetchMovies({type:'all'}))
-    },[genresLoaded])
-
+    useEffect(() => {
+        if (genresLoaded) dispatch(fetchMovies({type: 'all'}))
+    }, [genresLoaded])
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset !== 0)
         return () => window.onscroll = null
     }
+
+
+    console.log(movies)
 
 
     return (
@@ -59,7 +64,7 @@ const Netflix = () => {
                     </div>
                 </div>
             </div>
-            <Slider movies={movies}/>
+            {loadingMovies ? <Spinner/> : <Slider movies={movies}/>}
         </Container>
     );
 };

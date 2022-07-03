@@ -10,6 +10,7 @@ import NavBar from "../components/NavBar";
 import Slider from "../components/Slider";
 import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
+import Spinner from "../components/spinner";
 
 const Movies = () => {
 
@@ -19,6 +20,7 @@ const Movies = () => {
     const genresLoaded = useSelector((state) => state.netflix.genresLoaded)
     const movies = useSelector((state) => state.netflix.movies)
     const genres = useSelector((state) => state.netflix.genres)
+    const loadingMovies = useSelector((state) => state.netflix.loadingMovies)
 
 
     const onClickNavigate = useCallback(() => {
@@ -46,6 +48,7 @@ const Movies = () => {
     })
 
 
+
     return (
         <Container>
             <div className="navbar">
@@ -53,7 +56,9 @@ const Movies = () => {
             </div>
             <div className="data">
                 <SelectGenre genres={genres} type={'movie'}/>
-                {movies.length ? <Slider movies={movies}/> : <NotAvailable/>}
+                {loadingMovies ?  <Spinner/> : movies.length ? <Slider movies={movies}/> :<NotAvailable/>}
+                {/*{movies.length ? <Slider movies={movies}/> :<NotAvailable/>}*/}
+
             </div>
         </Container>
     );
