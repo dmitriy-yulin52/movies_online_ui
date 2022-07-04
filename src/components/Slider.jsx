@@ -8,8 +8,7 @@ function getMoviesFromRange(movies,from,to){
 }
 
 
-const Slider = memo(({movies}) => {
-
+const Slider = memo(({movies,loadingMovies}) => {
 
     return (
         <div>

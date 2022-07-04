@@ -19,7 +19,6 @@ export const fetchMovies = createAsyncThunk('netflix/trending',
         )
     })
 
-
 export const fetchDataByGenre = createAsyncThunk('netflix/genre',
      async ({genres,genre,type}, thunkApi) => {
 

@@ -19,6 +19,7 @@ const NetflixSlice = createSlice({
             state.loadingMovies = false;
         });
         builder.addCase(getGenres.pending, (state, action) => {
+            state.genresLoaded = false;
             state.loadingMovies = true;
         });
         builder.addCase(fetchMovies.fulfilled, (state, action) => {

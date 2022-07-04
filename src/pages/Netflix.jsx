@@ -42,8 +42,6 @@ const Netflix = () => {
     }
 
 
-    console.log(movies)
-
 
     return (
         <Container>
@@ -64,7 +62,7 @@ const Netflix = () => {
                     </div>
                 </div>
             </div>
-            {loadingMovies ? <Spinner/> : <Slider movies={movies}/>}
+            {loadingMovies ? <Spinner/> : <Slider loadingMovies={loadingMovies} movies={movies}/>}
         </Container>
     );
 };
