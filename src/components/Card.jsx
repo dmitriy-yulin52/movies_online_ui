@@ -3,18 +3,34 @@ import {memo, useCallback, useState} from "react";
 import styled from 'styled-components'
 import {URL_IMAGE} from "../utils/constants";
 import {useNavigate} from "react-router-dom";
-import video  from '../assets/world.mp4'
+import video from '../assets/world.mp4'
 import {IoPlayCircleSharp} from 'react-icons/io5'
-import {RiThumbUpFill,RiThumbDownFill} from 'react-icons/ri'
+import {RiThumbUpFill, RiThumbDownFill} from 'react-icons/ri'
 import {BsCheck} from 'react-icons/bs'
 import {AiOutlinePlus} from 'react-icons/ai'
 import {BiChevronDown} from 'react-icons/bi'
+import {onAuthStateChanged} from "firebase/auth";
+import {firebaseAuth} from "../utils/firebase-config";
+import {api} from "../api/api";
+import {removeFromLikedMovies} from "../store/netflix/actions";
+import {useDispatch} from "react-redux";
 
 
-const Card = memo(({movieData,isLiked = false}) => {
+async function addToList(email, movieData) {
+    try {
+        await api.addToList(email, movieData)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+const Card = memo(({movieData, isLiked = false}) => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [isHovered, setIsHovered] = useState(false)
+    const [email, setEmail] = useState(undefined)
 
 
     const onMouseEnterHandler = useCallback(() => {
@@ -26,6 +42,23 @@ const Card = memo(({movieData,isLiked = false}) => {
     const onClickNavigate = useCallback(() => {
         navigate('/player')
     }, [navigate])
+
+
+    const onClickAddToList = useCallback(async () => {
+        await addToList(email, movieData)
+    }, [email, movieData])
+
+    const onClickRemoveLikedMovies = () => {
+        console.log('remove')
+        dispatch(removeFromLikedMovies({email, movieId: movieData.id}))
+    }
+
+
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+        if (currentUser) setEmail(currentUser.email)
+        else navigate('/login')
+    })
+
 
     return (
         <Container onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
@@ -55,8 +88,8 @@ const Card = memo(({movieData,isLiked = false}) => {
                                 <IoPlayCircleSharp title={'play'} onClick={onClickNavigate}/>
                                 <RiThumbUpFill title={'like'}/>
                                 <RiThumbDownFill title={'Dislike'}/>
-                                {isLiked ? (<BsCheck title={'Remove From List'}/>):
-                                            (<AiOutlinePlus title={'Add to my list'}/>)
+                                {isLiked ? (<BsCheck title={'Remove From List'} onClick={onClickRemoveLikedMovies}/>) :
+                                    (<AiOutlinePlus title={'Add to my list'} onClick={onClickAddToList}/>)
                                 }
                             </div>
                             <div className="info">
@@ -64,7 +97,8 @@ const Card = memo(({movieData,isLiked = false}) => {
                             </div>
                         </div>
                         <div className="genres flex">
-                            <ul className="flex">{movieData.genres.map((genre,index)=><li key={genre}>{genre}</li>)}</ul>
+                            <ul className="flex">{movieData.genres.map((genre, index) => <li
+                                key={genre}>{genre}</li>)}</ul>
                         </div>
                     </div>
                 </div>
