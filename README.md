@@ -13,3 +13,5 @@ To develop the project, I used:
     axios,
     firebase,
     @reduxjs/toolkit,
+    express,
+    mongoose,
